@@ -26,22 +26,22 @@ int main() {
     fmt::println("Prefix sum parallel time: {} ms",tiempo1.count());
     //utils::printVector(output);
     histograma histograma;
-    auto valuesRaw=utils::initVectorHist(100000000);
+    auto valuesRaw=utils::initVectorHist(100000);
+    int grupos=4;
 
     auto startHistSerial = std::chrono::high_resolution_clock::now();
-    auto valHist=histograma.calcularHistograma(valuesRaw);
+    auto valHist=histograma.calcularHistograma(valuesRaw,grupos);
     auto endHistSerial = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double, std::milli> tiempoHistoSerial = endHistSerial - startHistSerial;
 
     fmt::println("Histograma serial time: {} ms",tiempoHistoSerial.count());
 
-
     auto startHistParallel = std::chrono::high_resolution_clock::now();
-    auto valHistParallel=histograma.calcularHistogramaParalell(valuesRaw);
+    auto valHistParallel=histograma.calcularHistogramaParalell(valuesRaw,grupos);
     auto endHistParallel = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double, std::milli> tiempoHistoParallel = endHistParallel - startHistParallel;
 
     fmt::println("Histograma paralell time: {} ms",tiempoHistoParallel.count());
-    histograma.renderHisto(valHistParallel);
+
     return 0;
 }
